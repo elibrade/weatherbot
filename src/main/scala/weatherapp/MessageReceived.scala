@@ -1,12 +1,8 @@
 package weatherapp
 
-// import net.dv8tion.jda.api.{AccountType, JDABuilder}
-// import scala.sys.process.*
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
-import org.apache.commons.compress.utils.IOUtils
 import java.io.BufferedReader
-import java.io.IOException
 import java.io.InputStreamReader
 import java.lang.ProcessBuilder
 import java.lang.Process
