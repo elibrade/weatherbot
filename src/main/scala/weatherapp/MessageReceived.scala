@@ -1,8 +1,15 @@
 package weatherapp
 
 // import net.dv8tion.jda.api.{AccountType, JDABuilder}
+// import scala.sys.process.*
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
+import org.apache.commons.compress.utils.IOUtils
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.lang.ProcessBuilder
+import java.lang.Process
 
 
 class MessageReceived extends ListenerAdapter:
@@ -24,12 +31,26 @@ class MessageReceived extends ListenerAdapter:
     action
 
 
+  def weatherReport(modifiers: String): String =
+    try
+      val path: String = "C:/Users/elias/vscodeProjects/python/fetchweatherdata/FetchWeatherData.py"
+      val builder: ProcessBuilder = new ProcessBuilder("python", path, modifiers)
+      val process: Process = builder.start()
 
-  def weatherReport(location: String): String =
-      if location.nonEmpty then
-          s"https://www.ilmatieteenlaitos.fi/saa/$location"
+      val reader: BufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream))
+      val output: StringBuilder = new StringBuilder()
+      output.append(reader.readLine())
+
+      val exitCode: Int = process.waitFor()
+      if exitCode == 0 then
+        output.toString()
       else
-          "You must specify the location."
+        throw new RuntimeException("Error executing Python script. Exit code: " + exitCode)
+
+    catch
+      case e: Exception =>
+        s"Error fetching weather information: ${e.getMessage}"
+
 
 
 
