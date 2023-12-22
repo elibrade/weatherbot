@@ -17,6 +17,4 @@ def get_weather_report(location):
 
 if __name__ == '__main__':
     location = sys.argv[1]
-    result = get_weather_report(location)
-    print(result)
-    result
+    get_weather_report(location)
