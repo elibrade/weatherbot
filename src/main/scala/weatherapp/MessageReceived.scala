@@ -29,7 +29,7 @@ class MessageReceived extends ListenerAdapter:
 
   def weatherReport(modifiers: String): String =
     try
-      val path: String = "C:/Users/elias/vscodeProjects/python/fetchweatherdata/FetchWeatherData.py"
+      val path: String = "PATH_TO_FETCHWEATHERDATA.PY"
       val builder: ProcessBuilder = new ProcessBuilder("python", path, modifiers)
       val process: Process = builder.start()
 
