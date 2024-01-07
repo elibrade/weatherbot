@@ -7,7 +7,9 @@ def forecast(location):
         forecast = fmi.forecast_by_place_name(location)
         message = ""
         for weather_data in forecast.forecasts:
-            message = ", ".join([message, f"{weather_data.temperature}"]) 
+            time    = f"{weather_data.time}"
+            temperature = f"{weather_data.temperature}"
+            message = " ".join([message, time[:10] + ": " + temperature[:-3] + " C"])
         return message
     except ClientError as err:
         # Catch and return client errors (invalid coordinate, unknown place, etc.)
@@ -20,5 +22,5 @@ def forecast(location):
 
 if __name__ == '__main__':
     location    = sys.argv[1]
-    result     = forecast(location)
-    result
+    result      = forecast(location)
+    print(result)
